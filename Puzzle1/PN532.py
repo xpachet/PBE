@@ -11,8 +11,7 @@ class Rfid_PN532:
         i2c = busio.I2C(board.SCL, board.SDA)
         reset_pin = DigitalInOut(board.D6)
         req_pin = DigitalInOut(board.D12)
-        pn532 = PN532_I2C(i2c, debug=False, reset=reset_pin, req=req_pin)
-        ic, ver, rev, support = pn532.firmware_version
+        pn532 = PN532_I2C(i2c, reset=reset_pin, req=req_pin)
         pn532.SAM_configuration()
         
         uid = None

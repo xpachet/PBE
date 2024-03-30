@@ -3,7 +3,7 @@ import Rfid_PN532
 import gi
 
 gi.require_version('Gtk', '3.0') #Tria la versió 3.0 de GTK
-from gi.repository import Gtk, Gdk, Gio
+from gi.repository import Gtk, Gdk, Gio, Glib
 
 class Window(Gtk.Window):
 
@@ -56,8 +56,10 @@ class Window(Gtk.Window):
 		self.label_box.get_style_context().remove_clas("label-box-red")
 		self.label_box.get_style_context().add_class("label-box-blue")
 
-	def print_uid(self):
+	def read_uid(self):
 		uid = self.PN532.read_uid()
+		GLib.idle_add(self.print_uid, uid)
+	def print_uid(self, uid):
 		self.label.set_label("\nUID: " + uid + "\n")
 		self.label_box.get_style_context().remove_class("label-box-blue")
 		self.label_box.get_style_context().add_class("label-box-red")
